@@ -1,0 +1,17 @@
+body {
+    margin: 0;
+    background-color: aquamarine;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+canvas {
+    border: 10px black solid;
+}
+form {
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+}
