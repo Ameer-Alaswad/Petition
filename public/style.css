@@ -15,3 +15,34 @@ form {
     display: flex;
     flex-direction: column;
 }
+button {
+    z-index: 1;
+    font-family: 'Potta One', cursive;
+    position: relative;
+    margin-bottom: 200px;
+    margin-right: 60px;
+    background-color: blue;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    display: block;
+    background: purple;
+    font-size: 16px;
+    font-weight: 300;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    padding: 10px 30px;
+    box-shadow: 0 6px purple;
+    border-radius: 20px;
+}
+
+button:hover {
+    box-shadow: 0 4px silver;
+    top: 2px;
+}
+
+button:active {
+    box-shadow: 0 0 silver;
+    top: 6px;
+}

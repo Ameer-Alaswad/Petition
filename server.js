@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const db = require('./db');
 const hb = require('express-handlebars');
+const cookieSession = require('cookie-session');
 ////////////////////////////////////////////////
 app.engine('handlebars', hb());
 app.set('view engine', 'handlebars');
@@ -9,27 +10,70 @@ app.set('view engine', 'handlebars');
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static('./public'));
 /////////////////////////////////////////////////
-// get petition
-app.get('/petition', (req, res) => {
-    res.render('petition', {
-        layout: null,
-    });
-});
-///////////////////////////////////
-// post petition
-app.post('/petition', (req, res) => {
-    const { first, last, signature } = req.body;
-    db.addSignature(first, last, signature)
+app.use(
+    cookieSession({
+        secret: `I'm always angry.`,
+        maxAge: 1000 * 60 * 60 * 24 * 14,
+    })
+);
+////////////////////////////////////////////
+/// signers
+app.get('/signers', (req, res) => {
+    db.getAllSignatures()
         .then(({ rows }) => {
-            console.log('rows', rows);
+            let allSigners = rows;
+            res.render('signers', {
+                layout: 'main',
+                allSigners,
+            });
         })
         .catch((err) => console.log('err', err));
 });
 
-db.getAllSignatures()
-    .then(({ rows }) => {
-        console.log('result', rows);
-    })
-    .catch((err) => console.log('err', err));
+//////////////////////////////////////////
+// get petition
+app.get('/petition', (req, res) => {
+    if (req.session.signatureId) {
+        res.redirect('/petition/thanks');
+    } else {
+        res.render('petition', {
+            layout: 'main',
+        });
+    }
+});
 
+///////////////////////////////////
+// post petition
+app.post('/petition', (req, res) => {
+    let { first, last, signature } = req.body;
+    if (!signature) {
+        res.redirect('petition');
+    }
+    // if there is no sginature redirect plus message
+    db.addSignature(first, last, signature)
+        .then(({ rows }) => {
+            req.session.signatureId = rows[0].id;
+            console.log('req.session.signatureId', req.session.signatureId);
+            res.redirect('/petition/thanks');
+        })
+        .catch((err) => console.log('err', err));
+});
+/////////////////////////////////////////
+//thanks template
+app.get('/petition/thanks', (req, res) => {
+    db.getSignature(req.session.signatureId)
+        .then(({ rows }) => {
+            let signature = rows[0].signature;
+            db.getSignersNumber().then(({ rows }) => {
+                let signersNumber = rows[0].count;
+                console.log('rows in signersNumber', rows);
+                res.render('thanks', {
+                    layout: 'main',
+                    signature,
+                    signersNumber,
+                });
+            });
+        })
+        .catch((err) => console.log('err in get/thanks', err));
+});
 app.listen(8080, () => console.log('petition running'));
