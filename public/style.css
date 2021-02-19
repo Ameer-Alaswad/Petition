@@ -46,3 +46,28 @@ button:active {
     box-shadow: 0 0 silver;
     top: 6px;
 }
+
+#login {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* align-items: center; */
+}
+#login-form {
+    display: flex;
+    justify-content: center;
+}
+
+#login-email-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#login-password-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

@@ -76,4 +76,33 @@ app.get('/petition/thanks', (req, res) => {
         })
         .catch((err) => console.log('err in get/thanks', err));
 });
+///////////////////////////////////////////////////////
+/// register get
+app.get('/register', (req, res) => {
+    res.render('register', {});
+});
+
+///////////////////////////////////////////
+/// register post
+app.post('/register', (req, res) => {});
+
+/////////////////////////////////////////////////
+///login get
+app.get('/login', (req, res) => {
+    res.render('login', {});
+});
+
+///////////////////////////////////////////////////
+///log in post
+app.post('/login', (req, res) => {});
+
+//////////////////////////////////////////////////
+//// profile get
+app.get('/profile', (req, res) => {
+    res.render('profile');
+});
+
+///////////////////////////////////////////
+//// profile post
+app.post('/profile', (req, res) => {});
 app.listen(8080, () => console.log('petition running'));
