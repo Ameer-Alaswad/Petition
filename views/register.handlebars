@@ -1,21 +1,24 @@
 <div id="register">
+    {{#if error}}
+    <h1>{{errorMessage}}</h1>
+    {{/if}}
     <h1>sign the petition to be able to bring your pet to Spiced</h1>
     <form action="/register" method="POST">
         <div>
             <h1>First Name</h1>
-            <input placeholder="name" type="text" name="first" required>
+            <input placeholder="name" type="text" name="first_name">
         </div>
         <div>
             <h1>Last Name</h1>
-            <input placeholder="last name" type="text" name="last" required>
+            <input placeholder="last name" type="text" name="last_name">
         </div>
         <div>
             <h1>Email</h1>
-            <input placeholder="email" type="email" name="email" required>
+            <input placeholder="email" type="email" name="email">
         </div>
         <div>
             <h1>Password</h1>
-            <input placeholder="password" type="password" name="password" required>
+            <input placeholder="password" type="password" name="password_hash">
         </div>
         <button><img style="height: 20px; width: 20px;" src="/icons/paw-black.png" alt=""> SIGN UP</button>
         < </form>
