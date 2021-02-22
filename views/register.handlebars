@@ -2,7 +2,7 @@
     {{#if error}}
     <h1>{{errorMessage}}</h1>
     {{/if}}
-    <h1>sign the petition to be able to bring your pet to Spiced</h1>
+    <h1 id="register-title">Sign up to help us with our cause</h1>
     <form action="/register" method="POST">
         <div>
             <h1>First Name</h1>
@@ -20,6 +20,8 @@
             <h1>Password</h1>
             <input placeholder="password" type="password" name="password_hash">
         </div>
-        <button><img style="height: 20px; width: 20px;" src="/icons/paw-black.png" alt=""> SIGN UP</button>
-        < </form>
+        <button><img src="/icons/paw-black.png" alt="">
+            <h4 class="btnText">sign up</h4>
+        </button>
+    </form>
 </div>

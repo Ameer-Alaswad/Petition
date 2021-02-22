@@ -4,6 +4,13 @@ const db = spicedPg(
     process.env.DATABASE_URL ||
         'postgres:postgres:postgres@localhost:5432/petition'
 );
+module.exports.getAllSigners = () => {
+    const q = `SELECT first_name,last_name
+    FROM users
+    JOIN signatures
+    ON users.id = signatures.user_id;`;
+    return db.query(q);
+};
 module.exports.getAllSignatures = () => {
     const q = `SELECT * FROM signatures`;
     return db.query(q);

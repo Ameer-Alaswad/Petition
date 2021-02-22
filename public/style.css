@@ -1,21 +1,102 @@
 body {
     margin: 0;
-    background-color: aquamarine;
+    background-color: rgba(128, 128, 128, 0.712);
     height: 100vh;
+    font-family: 'Potta One', cursive;
+    font-size: 10px;
+
+    /* height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: center; */
 }
+
+header {
+    height: 50px;
+    background-color: #000;
+    color: aliceblue;
+    /* box-shadow: 17px -74px 70px -65px rgba(174, 164, 164, 0.85) inset;
+    -webkit-box-shadow: 17px -74px 70px -65px rgba(174, 164, 164, 0.85) inset;
+    -moz-box-shadow: 17px -74px 70px -65px rgba(174, 164, 164, 0.85) inset; */
+    background: rgb(37, 36, 36);
+    background: linear-gradient(
+        60deg,
+        rgba(37, 36, 36, 1) 37%,
+        rgba(57, 72, 70, 1) 52%,
+        rgba(56, 79, 75, 1) 58%,
+        rgba(54, 87, 81, 1) 70%,
+        rgba(49, 124, 111, 1) 84%,
+        rgba(44, 156, 137, 1) 96%,
+        rgba(63, 144, 130, 1) 99%,
+        rgba(115, 111, 111, 1) 100%
+    );
+}
+footer {
+    background-color: #000;
+    color: aliceblue;
+}
+
 canvas {
     border: 10px black solid;
 }
 form {
-    height: 500px;
+    box-shadow: -1px 2px 45px 21px rgba(0, 0, 0, 0.69);
+    -webkit-box-shadow: -1px 2px 45px 21px rgba(0, 0, 0, 0.69);
+    -moz-box-shadow: -1px 2px 45px 21px rgba(0, 0, 0, 0.69);
+    background-color: rgba(255, 255, 255, 0.308);
+    margin: 100px auto;
+    width: 300px;
+    height: 560px;
     display: flex;
+    justify-content: center;
     flex-direction: column;
+    align-items: center;
+}
+form:hover {
+    transform: scale(1.02);
+}
+
+img {
+    height: 45px;
+    width: 45px;
+    padding-left: 3px;
+}
+.btnText {
+    margin: 3px 0;
 }
 button {
+    border: none;
+    outline: none;
+    height: 100px;
+    width: 68px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 10px;
+    font-size: 12px;
+    text-align: center;
+    cursor: pointer;
+    color: #000;
+    background-color: transparent;
+    border-radius: 15px;
+    box-shadow: 0 9px rgb(153, 153, 153);
+}
+button:active {
+    background-color: transparent;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}
+button:hover {
+    /* background-color: rgba(102, 102, 102, 0.103); */
+}
+form button {
+    margin-top: 30px;
+}
+
+/* button {
     z-index: 1;
     font-family: 'Potta One', cursive;
     position: relative;
@@ -45,7 +126,7 @@ button:hover {
 button:active {
     box-shadow: 0 0 silver;
     top: 6px;
-}
+} */
 
 #login {
     display: flex;
@@ -70,4 +151,31 @@ button:active {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+#register {
+    height: 92%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-image: url(./images/paw2.jpg);
+}
+
+input {
+    height: 25px;
+    outline: none;
+    border: none;
+    border-left: 2px solid rgba(0, 0, 0, 0.342);
+    background-color: rgba(255, 255, 255, 0.548);
+}
+
+input:hover {
+    border-left: 3px solid rgba(0, 0, 0, 0.685);
+}
+
+/* register */
+#register-title {
+    padding-top: 30px;
+    margin: 0 auto;
+    width: 400px;
+    text-align: center;
 }

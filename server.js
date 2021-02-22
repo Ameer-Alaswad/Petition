@@ -20,8 +20,9 @@ app.use(
 ////////////////////////////////////////////
 /// signers
 app.get('/signers', (req, res) => {
-    db.getAllSignatures()
+    db.getAllSigners()
         .then(({ rows }) => {
+            console.log('rows', rows);
             let allSigners = rows;
             res.render('signers', {
                 layout: 'main',
@@ -34,7 +35,6 @@ app.get('/signers', (req, res) => {
 //////////////////////////////////////////
 // get petition
 app.get('/petition', (req, res) => {
-    // console.log('req.session.signatureId', req.session.signatureId);
     if (req.session.signatureId) {
         res.redirect('/petition/thanks');
     } else if (req.session.userId) {
@@ -59,7 +59,6 @@ app.post('/petition', (req, res) => {
         db.addSignature(signature, req.session.userId)
             .then(({ rows }) => {
                 req.session.signatureId = rows[0].id;
-                console.log('req.session.signatureId', req.session.signatureId);
                 res.redirect('/petition/thanks');
             })
             .catch((err) => console.log('err in petition post', err));
