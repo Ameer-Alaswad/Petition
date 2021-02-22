@@ -129,11 +129,17 @@ button:active {
 } */
 
 #login {
-    display: flex;
+    /* /* display: flex;
     flex-direction: column;
-    justify-content: center;
-    /* align-items: center; */
+    justify-content: center; */
+    /* align-items: center;
+     */
+    height: 92%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-image: url(./images/paw2.jpg);
 }
+
 #login-form {
     display: flex;
     justify-content: center;
@@ -178,4 +184,11 @@ input:hover {
     margin: 0 auto;
     width: 400px;
     text-align: center;
+}
+
+#profile {
+    height: 92%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-image: url(./images/paw2.jpg);
 }

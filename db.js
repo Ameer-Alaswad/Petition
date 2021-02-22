@@ -44,3 +44,8 @@ module.exports.getUser = (email) => {
      email = '${email}'`;
     return db.query(q);
 };
+module.exports.addProfile = (age, city, url, user_id) => {
+    const q = `INSERT INTO user_profiles (age, city, url,user_id)
+    VALUES ('${age}', '${city}', '${url}','${user_id}')`;
+    return db.query(q);
+};

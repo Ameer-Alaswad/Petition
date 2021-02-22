@@ -1,5 +1,7 @@
 DROP TABLE IF EXISTS signatures;
 DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS user_profiles;
+
 
 CREATE TABLE users
 (
@@ -19,8 +21,17 @@ CREATE TABLE signatures
     -- Foreign keys let us link tables together, in this case it let's us
     -- identify which signature belongs to which user from the users table.
     -- This link can be leverage in JOIN queries (covered in Part 4).
-    user_id INTEGER NOT NULL UNIQUE REFERENCES users (id),
+    user_id INTEGER NOT NULL UNIQUE REFERENCES users(id),
     -- get rid of first_name and last_name
     signature TEXT NOT NULL CHECK (signature <> ''),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE user_profiles
+(
+    id SERIAL PRIMARY KEY,
+    age INT,
+    city VARCHAR(100),
+    url VARCHAR(300),
+    user_id INTEGER NOT NULL UNIQUE REFERENCES users(id)
 );

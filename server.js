@@ -73,7 +73,6 @@ app.get('/petition/thanks', (req, res) => {
             let signature = rows[0].signature;
             db.getSignersNumber().then(({ rows }) => {
                 let signersNumber = rows[0].count;
-                console.log('rows in signersNumber', rows);
                 res.render('thanks', {
                     layout: 'main',
                     signature,
@@ -109,7 +108,7 @@ app.post('/register', (req, res) => {
             )
             .then(({ rows }) => {
                 req.session.userId = rows[0].id;
-                res.redirect('/petition');
+                res.redirect('/profile');
             })
 
             .catch((err) => {
@@ -171,5 +170,17 @@ app.get('/profile', (req, res) => {
 
 ///////////////////////////////////////////
 //// profile post
-app.post('/profile', (req, res) => {});
-app.listen(8080, () => console.log('petition running'));
+app.post('/profile', (req, res) => {
+    let { age, city, url } = req.body;
+    if (!url.startsWith('https://') || !url.startsWith('http://')) {
+        let newUrl = '';
+        newUrl = newUrl.concat('https://', url);
+        console.log('newUrl', newUrl);
+        db.addProfile(age, city, newUrl, req.session.userId)
+            .then(() => {
+                res.redirect('petition');
+            })
+            .catch((err) => console.log('err in profile', err));
+    }
+});
+app.listen(process.env.PORT || 8080, () => console.log('petition running'));
