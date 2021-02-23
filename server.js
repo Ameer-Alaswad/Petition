@@ -59,6 +59,7 @@ app.post('/petition', (req, res) => {
         db.addSignature(signature, req.session.userId)
             .then(({ rows }) => {
                 req.session.signatureId = rows[0].id;
+                console.log('🚀 ~ .then ~ rows[0].id', rows[0].id);
                 res.redirect('/petition/thanks');
             })
             .catch((err) => console.log('err in petition post', err));
@@ -69,7 +70,7 @@ app.post('/petition', (req, res) => {
 app.get('/petition/thanks', (req, res) => {
     db.getSignature(req.session.signatureId)
         .then(({ rows }) => {
-            console.log('rows', rows);
+            console.log('rows in thanks', rows);
             let signature = rows[0].signature;
             db.getSignersNumber().then(({ rows }) => {
                 let signersNumber = rows[0].count;
@@ -172,15 +173,44 @@ app.get('/profile', (req, res) => {
 //// profile post
 app.post('/profile', (req, res) => {
     let { age, city, url } = req.body;
-    if (!url.startsWith('https://') || !url.startsWith('http://')) {
+    if (url.startsWith('https://') || url.startsWith('http://')) {
+        url = 'https://' + url;
+        let userId = req.session.userId;
+        console.log('userId', userId);
+        db.addProfile(age, city, url, userId)
+            .then(() => {
+                res.redirect('petition');
+            })
+            .catch((err) => console.log('err in profile', err));
+    } else {
         let newUrl = '';
         newUrl = newUrl.concat('https://', url);
         console.log('newUrl', newUrl);
-        db.addProfile(age, city, newUrl, req.session.userId)
+        let userId = req.session.userId;
+        console.log('userId', userId);
+        db.addProfile(age, city, newUrl, userId)
             .then(() => {
                 res.redirect('petition');
             })
             .catch((err) => console.log('err in profile', err));
     }
+});
+//  Promise.all([
+//         db.updateUsers(first, last, email, userId),
+//         db.updateProfile(age, city, url, userId),
+//     ]).then
+
+app.get('/signers/:city', (req, res) => {
+    let city = req.params.city;
+    db.getSignersByCity(city)
+        .then(({ rows }) => {
+            console.log('rows', rows);
+            let allSigners = rows;
+            res.render('city', {
+                layout: 'main',
+                allSigners,
+            });
+        })
+        .catch((err) => console.log('err in signers city', err));
 });
 app.listen(process.env.PORT || 8080, () => console.log('petition running'));

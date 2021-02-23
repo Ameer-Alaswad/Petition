@@ -5,10 +5,10 @@ const db = spicedPg(
         'postgres:postgres:postgres@localhost:5432/petition'
 );
 module.exports.getAllSigners = () => {
-    const q = `SELECT first_name,last_name
+    const q = `SELECT first_name,last_name,age,city,url
     FROM users
-    JOIN signatures
-    ON users.id = signatures.user_id;`;
+    JOIN user_profiles
+    ON users.id = user_profiles.user_id;`;
     return db.query(q);
 };
 module.exports.getAllSignatures = () => {
@@ -47,5 +47,16 @@ module.exports.getUser = (email) => {
 module.exports.addProfile = (age, city, url, user_id) => {
     const q = `INSERT INTO user_profiles (age, city, url,user_id)
     VALUES ('${age}', '${city}', '${url}','${user_id}')`;
+    return db.query(q);
+};
+
+module.exports.getSignersByCity = (city) => {
+    const q = `SELECT first_name,last_name,age 
+    FROM users
+    LEFT JOIN signatures
+    ON users.id = signatures.user_id
+    LEFT JOIN user_profiles
+    ON users.id = user_profiles.user_id
+    WHERE city = '${city}'`;
     return db.query(q);
 };

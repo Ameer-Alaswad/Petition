@@ -17,12 +17,7 @@ CREATE TABLE users
 CREATE TABLE signatures
 (
     id SERIAL PRIMARY KEY,
-    -- Add the foreign key user_id
-    -- Foreign keys let us link tables together, in this case it let's us
-    -- identify which signature belongs to which user from the users table.
-    -- This link can be leverage in JOIN queries (covered in Part 4).
     user_id INTEGER NOT NULL UNIQUE REFERENCES users(id),
-    -- get rid of first_name and last_name
     signature TEXT NOT NULL CHECK (signature <> ''),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
