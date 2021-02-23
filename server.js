@@ -17,6 +17,10 @@ app.use(
         maxAge: 1000 * 60 * 60 * 24 * 14,
     })
 );
+//////////////////////////////////////////////
+///
+app.get('/', (req, res) => res.redirect('/petition'));
+
 ////////////////////////////////////////////
 /// signers
 app.get('/signers', (req, res) => {
@@ -68,10 +72,13 @@ app.post('/petition', (req, res) => {
 /////////////////////////////////////////
 //thanks template
 app.get('/petition/thanks', (req, res) => {
-    db.getSignature(req.session.signatureId)
+    signatureId = req.session.signatureId;
+    console.log('signatureId', signatureId);
+    db.getSignature(signatureId)
         .then(({ rows }) => {
-            console.log('rows in thanks', rows);
+            console.log('rows', rows);
             let signature = rows[0].signature;
+            console.log('signature in thanx', signature);
             db.getSignersNumber().then(({ rows }) => {
                 let signersNumber = rows[0].count;
                 res.render('thanks', {
@@ -174,21 +181,17 @@ app.get('/profile', (req, res) => {
 app.post('/profile', (req, res) => {
     let { age, city, url } = req.body;
     if (url.startsWith('https://') || url.startsWith('http://')) {
-        url = 'https://' + url;
         let userId = req.session.userId;
-        console.log('userId', userId);
         db.addProfile(age, city, url, userId)
             .then(() => {
                 res.redirect('petition');
             })
             .catch((err) => console.log('err in profile', err));
-    } else {
-        let newUrl = '';
-        newUrl = newUrl.concat('https://', url);
-        console.log('newUrl', newUrl);
+    } else if (!url.startsWith('https://') || !url.startsWith('http://')) {
+        url = 'https://' + url;
         let userId = req.session.userId;
         console.log('userId', userId);
-        db.addProfile(age, city, newUrl, userId)
+        db.addProfile(age, city, url, userId)
             .then(() => {
                 res.redirect('petition');
             })
@@ -204,8 +207,8 @@ app.get('/signers/:city', (req, res) => {
     let city = req.params.city;
     db.getSignersByCity(city)
         .then(({ rows }) => {
-            console.log('rows', rows);
             let allSigners = rows;
+            console.log('all', allSigners);
             res.render('city', {
                 layout: 'main',
                 allSigners,

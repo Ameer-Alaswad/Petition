@@ -51,7 +51,7 @@ module.exports.addProfile = (age, city, url, user_id) => {
 };
 
 module.exports.getSignersByCity = (city) => {
-    const q = `SELECT first_name,last_name,age 
+    const q = `SELECT first_name,last_name,age,url 
     FROM users
     LEFT JOIN signatures
     ON users.id = signatures.user_id
