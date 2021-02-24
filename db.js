@@ -45,8 +45,8 @@ module.exports.getUser = (email) => {
     return db.query(q);
 };
 module.exports.addProfile = (age, city, url, user_id) => {
-    const q = `INSERT INTO user_profiles (age, city, url,user_id)
-    VALUES ('${age}', '${city}', '${url}','${user_id}')`;
+    const q = `INSERT INTO user_profiles (age, city, url, user_id)
+    VALUES (${age}, '${city}', '${url}','${user_id}')`;
     return db.query(q);
 };
 
@@ -58,5 +58,53 @@ module.exports.getSignersByCity = (city) => {
     LEFT JOIN user_profiles
     ON users.id = user_profiles.user_id
     WHERE city = '${city}'`;
+    return db.query(q);
+};
+module.exports.getSigner = (userId) => {
+    const q = `SELECT first_name,last_name,age,city,url,email
+    FROM users
+    JOIN user_profiles
+    ON users.id = user_profiles.user_id
+    WHERE users.id = '${userId}'`;
+    return db.query(q);
+};
+
+module.exports.updateUserWithPassword = (
+    first_name,
+    last_name,
+    password_hash,
+    email,
+    userId
+) => {
+    const q = `UPDATE users
+    Set first_name = '${first_name}', last_name = '${last_name}', password_hash ='${password_hash}', email = '${email}'
+    WHERE id = '${userId}';`;
+    return db.query(q);
+};
+
+module.exports.updateUserWithoutPassword = (
+    first_name,
+    last_name,
+    email,
+    userId
+) => {
+    const q = `UPDATE users
+Set first_name = '${first_name}', last_name = '${last_name}', email = '${email}'
+WHERE id = '${userId}';`;
+    return db.query(q);
+};
+
+module.exports.upsertUserProfile = (age, city, url, user_id) => {
+    const q = `INSERT INTO user_profiles (age, city, url, user_id)
+VALUES (${age}, '${city}', '${url}', '${user_id}')
+ON CONFLICT (user_id)
+DO UPDATE SET age = ${age}, city = '${city}', url = '${url}';`;
+    return db.query(q);
+};
+
+module.exports.deleteSignature = (signatureId) => {
+    const q = `DELETE FROM signatures 
+    WHERE user_id = '${signatureId}'
+    `;
     return db.query(q);
 };

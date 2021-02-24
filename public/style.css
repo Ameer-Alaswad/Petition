@@ -40,7 +40,7 @@ footer {
 canvas {
     border: 10px black solid;
 }
-form {
+.container {
     box-shadow: -1px 2px 45px 21px rgba(0, 0, 0, 0.69);
     -webkit-box-shadow: -1px 2px 45px 21px rgba(0, 0, 0, 0.69);
     -moz-box-shadow: -1px 2px 45px 21px rgba(0, 0, 0, 0.69);
@@ -53,7 +53,7 @@ form {
     flex-direction: column;
     align-items: center;
 }
-form:hover {
+.container:hover {
     transform: scale(1.02);
 }
 
@@ -65,7 +65,7 @@ img {
 .btnText {
     margin: 3px 0;
 }
-button {
+/* button {
     border: none;
     outline: none;
     height: 100px;
@@ -83,15 +83,15 @@ button {
     background-color: transparent;
     border-radius: 15px;
     box-shadow: 0 9px rgb(153, 153, 153);
-}
-button:active {
+} */
+/* button:active {
     background-color: transparent;
     box-shadow: 0 5px #666;
     transform: translateY(4px);
 }
 button:hover {
     /* background-color: rgba(102, 102, 102, 0.103); */
-}
+/* }  */
 form button {
     margin-top: 30px;
 }
@@ -191,4 +191,15 @@ input:hover {
     background-size: cover;
     background-repeat: no-repeat;
     background-image: url(./images/paw2.jpg);
+}
+
+#button-delete button {
+    border: none;
+    outline: none;
+    text-decoration: underline;
+    background: none;
+    cursor: pointer;
+    color: blue;
+    font-size: 11px;
+    font-family: 'Potta One', cursive;
 }

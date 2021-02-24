@@ -1,5 +1,13 @@
 <div>
     <img src="{{signature}}" alt="">
-    <a href="/signers"> see all {{signersNumber}} signers</a>
+    <a href="/delete">
+        <form id="button-delete" action="/delete" method="POST">
+            <button>Delete your signature</button>
+            <input type="hidden" name="_csrf" value="{{csrfToken}}">
+        </form>
+    </a>
+    <a href="/edit">Edit your profile</a>
+
+    <p><a href="/signers"> see all {{signersNumber}} signers</a></p>
 </div>
 {{!-- <img src="/icons/paw-black.png" alt=""> --}}

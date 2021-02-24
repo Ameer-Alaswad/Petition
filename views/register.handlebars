@@ -4,7 +4,7 @@
 
     {{/if}}
     <h1 id="register-title">Sign up to help us with our cause</h1>
-    <form action="/register" method="POST">
+    <form class="container" action="/register" method="POST">
         <div>
             <h1>First Name</h1>
             <input placeholder="name" type="text" name="first_name">
@@ -15,12 +15,13 @@
         </div>
         <div>
             <h1>Email</h1>
-            <input placeholder="email" type="email" name="email">
+            <input placeholder="name@hotmail.com" type="email" name="email" required>
         </div>
         <div>
             <h1>Password</h1>
             <input placeholder="password" type="password" name="password_hash">
         </div>
+        <input type="hidden" name="_csrf" value="{{csrfToken}}">
         <button><img src="/icons/paw-black.png" alt="">
             <h4 class="btnText">sign up</h4>
         </button>

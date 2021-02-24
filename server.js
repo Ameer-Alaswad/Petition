@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const csurf = require('csurf');
 const db = require('./db');
 const hb = require('express-handlebars');
 const cookieSession = require('cookie-session');
@@ -17,6 +18,11 @@ app.use(
         maxAge: 1000 * 60 * 60 * 24 * 14,
     })
 );
+app.use(csurf());
+app.use(function (req, res, next) {
+    res.locals.csrfToken = req.csrfToken();
+    next();
+});
 //////////////////////////////////////////////
 ///
 app.get('/', (req, res) => res.redirect('/petition'));
@@ -26,7 +32,6 @@ app.get('/', (req, res) => res.redirect('/petition'));
 app.get('/signers', (req, res) => {
     db.getAllSigners()
         .then(({ rows }) => {
-            console.log('rows', rows);
             let allSigners = rows;
             res.render('signers', {
                 layout: 'main',
@@ -54,8 +59,6 @@ app.get('/petition', (req, res) => {
 // post petition
 app.post('/petition', (req, res) => {
     let { signature } = req.body;
-    console.log('signature', signature);
-    console.log('req.session.userId', req.session.userId);
     if (!signature) {
         res.redirect('/petition');
     } else {
@@ -63,7 +66,6 @@ app.post('/petition', (req, res) => {
         db.addSignature(signature, req.session.userId)
             .then(({ rows }) => {
                 req.session.signatureId = rows[0].id;
-                console.log('🚀 ~ .then ~ rows[0].id', rows[0].id);
                 res.redirect('/petition/thanks');
             })
             .catch((err) => console.log('err in petition post', err));
@@ -73,12 +75,9 @@ app.post('/petition', (req, res) => {
 //thanks template
 app.get('/petition/thanks', (req, res) => {
     signatureId = req.session.signatureId;
-    console.log('signatureId', signatureId);
     db.getSignature(signatureId)
         .then(({ rows }) => {
-            console.log('rows', rows);
             let signature = rows[0].signature;
-            console.log('signature in thanx', signature);
             db.getSignersNumber().then(({ rows }) => {
                 let signersNumber = rows[0].count;
                 res.render('thanks', {
@@ -103,7 +102,9 @@ app.get('/register', (req, res) => {
 ///////////////////////////////////////////
 /// register post
 app.post('/register', (req, res) => {
-    var { first_name, last_name, email, password_hash } = req.body;
+    let { first_name, last_name, email, password_hash } = req.body;
+    first_name = first_name.charAt(0).toUpperCase() + first_name.slice(1);
+    last_name = last_name.charAt(0).toUpperCase() + last_name.slice(1);
     if (!first_name || !last_name || !email || !password_hash) {
         res.render('register', {
             error: true,
@@ -180,8 +181,13 @@ app.get('/profile', (req, res) => {
 //// profile post
 app.post('/profile', (req, res) => {
     let { age, city, url } = req.body;
+    city = city.charAt(0).toUpperCase() + city.slice(1);
+    if (!age) {
+        age = null;
+    }
     if (url.startsWith('https://') || url.startsWith('http://')) {
         let userId = req.session.userId;
+
         db.addProfile(age, city, url, userId)
             .then(() => {
                 res.redirect('petition');
@@ -190,7 +196,6 @@ app.post('/profile', (req, res) => {
     } else if (!url.startsWith('https://') || !url.startsWith('http://')) {
         url = 'https://' + url;
         let userId = req.session.userId;
-        console.log('userId', userId);
         db.addProfile(age, city, url, userId)
             .then(() => {
                 res.redirect('petition');
@@ -198,17 +203,13 @@ app.post('/profile', (req, res) => {
             .catch((err) => console.log('err in profile', err));
     }
 });
-//  Promise.all([
-//         db.updateUsers(first, last, email, userId),
-//         db.updateProfile(age, city, url, userId),
-//     ]).then
-
+/////////////////////////////////////////////////
+///signers
 app.get('/signers/:city', (req, res) => {
     let city = req.params.city;
     db.getSignersByCity(city)
         .then(({ rows }) => {
             let allSigners = rows;
-            console.log('all', allSigners);
             res.render('city', {
                 layout: 'main',
                 allSigners,
@@ -216,4 +217,85 @@ app.get('/signers/:city', (req, res) => {
         })
         .catch((err) => console.log('err in signers city', err));
 });
+////////////////////////////////////////////////
+////update get
+app.get('/edit', (req, res) => {
+    let userId = req.session.userId;
+    if (!userId) {
+        return res.redirect('/register');
+    }
+    db.getSigner(userId)
+        .then(({ rows }) => {
+            signer = rows[0];
+            res.render('edit', {
+                signer,
+            });
+        })
+        .catch((err) => console.log('err in edit get', err));
+});
+
+///////////////////////////////////////////////////
+///update post
+app.post('/edit', (req, res) => {
+    let userId = req.session.userId;
+    let {
+        first_name,
+        last_name,
+        password_hash,
+        email,
+        age,
+        city,
+        url,
+    } = req.body;
+    city = city.charAt(0).toUpperCase() + city.slice(1);
+    first_name = first_name.charAt(0).toUpperCase() + first_name.slice(1);
+    last_name = last_name.charAt(0).toUpperCase() + last_name.slice(1);
+
+    if (!age) {
+        age = null;
+    }
+    if (password_hash) {
+        hash(password_hash).then((hashedPassword) => {
+            Promise.all([
+                db.updateUserWithPassword(
+                    first_name,
+                    last_name,
+                    hashedPassword,
+                    email,
+                    userId
+                ),
+                db.upsertUserProfile(age, city, url, userId),
+            ])
+                .then(() => {
+                    res.redirect('/petition');
+                })
+                .catch((err) => console.log('err in edit if passowrd', err));
+        });
+    } else {
+        Promise.all([
+            db.updateUserWithoutPassword(first_name, last_name, email, userId),
+            db.upsertUserProfile(age, city, url, userId),
+        ])
+            .then(() => res.redirect('/petition'))
+            .catch((err) => console.log('err in edit without password', err));
+    }
+});
+///////////////////////////////////////////
+///////post delete
+app.post('/delete', (req, res) => {
+    let signatureId = req.session.signatureId;
+    db.deleteSignature(signatureId)
+        .then(() => {
+            req.session.signatureId = null;
+            res.redirect('/petition');
+        })
+        .catch((err) => console.log('err in delete', err));
+});
+////////////////////////////////////////////
+//// logout
+app.get('/logout', (req, res) => {
+    req.session = null;
+    res.redirect('/login');
+});
+
 app.listen(process.env.PORT || 8080, () => console.log('petition running'));
