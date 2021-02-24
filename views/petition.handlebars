@@ -1,12 +1,13 @@
-<div>
+<div id="petition-div">
     <h1>sign the petition to be able to bring your pet to Spiced</h1>
     <form class="container" action="/petition" method="POST">
         <div>
             <canvas id="canvas" width="350" height="300"></canvas>
             <input id="signature-input" type="hidden" name="signature">
-            <button><img style="height: 20px; width: 20px;" src="/icons/paw-black.png" alt=""> submit</button>
+            <input type="hidden" name="_csrf" value="{{csrfToken}}">
+            <button id="button-in-petition"><img id="icon-in-button" src="/icons/paw-black.png" alt="">
+                submit</button>
         </div>
-        <input type="hidden" name="_csrf" value="{{csrfToken}}">
     </form>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"

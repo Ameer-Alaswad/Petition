@@ -58,12 +58,15 @@ app.get('/petition', (req, res) => {
 ///////////////////////////////////
 // post petition
 app.post('/petition', (req, res) => {
+    let userId = req.session.userId;
     let { signature } = req.body;
+    console.log('🚀 ~ app.post ~ req.body', req.body);
+    console.log('🚀 ~ app.post ~ signature', signature);
     if (!signature) {
         res.redirect('/petition');
     } else {
         // if there is no sginature redirect plus message
-        db.addSignature(signature, req.session.userId)
+        db.addSignature(signature, userId)
             .then(({ rows }) => {
                 req.session.signatureId = rows[0].id;
                 res.redirect('/petition/thanks');
@@ -75,8 +78,13 @@ app.post('/petition', (req, res) => {
 //thanks template
 app.get('/petition/thanks', (req, res) => {
     signatureId = req.session.signatureId;
-    db.getSignature(signatureId)
+    if (!signatureId) {
+        res.redirect('/petition');
+    }
+    console.log('signatureId', signatureId);
+    db.getSignature(req.session.userId)
         .then(({ rows }) => {
+            console.log('rows', rows);
             let signature = rows[0].signature;
             db.getSignersNumber().then(({ rows }) => {
                 let signersNumber = rows[0].count;
@@ -283,8 +291,9 @@ app.post('/edit', (req, res) => {
 ///////////////////////////////////////////
 ///////post delete
 app.post('/delete', (req, res) => {
+    let userId = req.session.userId;
     let signatureId = req.session.signatureId;
-    db.deleteSignature(signatureId)
+    db.deleteSignature(userId)
         .then(() => {
             req.session.signatureId = null;
             res.redirect('/petition');

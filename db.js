@@ -23,9 +23,9 @@ module.exports.addSignature = (signature, user_id) => {
     `;
     return db.query(q);
 };
-module.exports.getSignature = (signatureId) => {
+module.exports.getSignature = (userId) => {
     const q = `SELECT signature FROM signatures WHERE
-     signatures.user_id = '${signatureId}'`;
+     signatures.user_id = '${userId}'`;
     return db.query(q);
 };
 module.exports.getSignersNumber = () => {
@@ -102,9 +102,9 @@ DO UPDATE SET age = ${age}, city = '${city}', url = '${url}';`;
     return db.query(q);
 };
 
-module.exports.deleteSignature = (signatureId) => {
+module.exports.deleteSignature = (userId) => {
     const q = `DELETE FROM signatures 
-    WHERE user_id = '${signatureId}'
+    WHERE user_id = '${userId}'
     `;
     return db.query(q);
 };
