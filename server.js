@@ -81,10 +81,8 @@ app.get('/petition/thanks', (req, res) => {
     if (!signatureId) {
         res.redirect('/petition');
     }
-    console.log('signatureId', signatureId);
     db.getSignature(req.session.userId)
         .then(({ rows }) => {
-            console.log('rows', rows);
             let signature = rows[0].signature;
             db.getSignersNumber().then(({ rows }) => {
                 let signersNumber = rows[0].count;
