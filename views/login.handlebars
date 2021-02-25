@@ -1,4 +1,4 @@
-<div id="login">
+<div class="div-container" id="login">
     {{#if error}}
     <h1>{{errorMessage}}</h1>
     {{/if}}
@@ -15,6 +15,6 @@
         <input type="hidden" name="_csrf" value="{{csrfToken}}">
         <button class="button"><img style="height: 20px; width: 20px;" src="/icons/paw-black.png" alt=""> log
             in</button>
-        <a href="/register">or regiser if you don't have an account</a>
+        <a class="register-link" href="/register">or regiser if you don't have an account</a>
     </form>
 </div>

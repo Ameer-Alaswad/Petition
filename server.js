@@ -101,7 +101,8 @@ app.get('/register', (req, res) => {
     if (req.session.userId) {
         res.redirect('/petition');
     } else {
-        // req.session = null;
+        req.session.userId = null;
+        req.session.signatureId = null;
         res.render('register', { layout: 'main', notLogged: true });
     }
 });

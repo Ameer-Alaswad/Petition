@@ -3,9 +3,9 @@ html {
     padding: 0;
 }
 body {
-    position: relative;
+    /* position: relative; */
     margin: 0;
-    height: 100%;
+    height: 100vh;
     background-color: rgba(128, 128, 128, 0.712);
     font-family: 'Potta One', cursive;
     font-size: 10px;
@@ -131,7 +131,7 @@ img {
     justify-content: center; */
     /* align-items: center;
      */
-    /* height: 100vh; */
+    height: 100vh;
     background-size: cover;
     background-repeat: no-repeat;
     background-image: url(./images/paw2.jpg);
@@ -156,14 +156,6 @@ img {
     align-items: center;
 }
 
-#register {
-    /* height: 95%; */
-    /* position: relative; */
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-image: url(./images/paw2.jpg);
-}
-
 input {
     height: 25px;
     outline: none;
@@ -182,13 +174,6 @@ input:hover {
     margin: 0 auto;
     width: 400px;
     text-align: center;
-}
-
-#profile {
-    /* height: 92%; */
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-image: url(./images/paw2.jpg);
 }
 
 #button-delete button {
@@ -226,29 +211,7 @@ footer {
     background-repeat: no-repeat;
     background-image: url(./images/paw2.jpg);
 } */
-#petition-div {
-    margin: 0;
-    height: 100vh;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-image: url(./images/paw3.jpeg);
-}
 
-#thanks-container {
-    margin: 0;
-    /* height: 95%; */
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-image: url(./images/paw3.jpeg);
-}
-
-#edit {
-    margin: 0;
-    /* height: 95%; */
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-image: url(./images/paw4.jpeg);
-}
 #edit form div h1 {
     font-size: small;
 }
@@ -258,23 +221,8 @@ footer {
     color: black;
 }
 
-#city-div {
-    margin: 0;
-    /* height: 95%; */
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-image: url(./images/paw1.jpeg);
-}
-
 #button-edit {
     height: 90px;
-}
-#signers-copntainer {
-    margin: 0;
-    /* height: 95%; */
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-image: url(./images/paw1.jpeg);
 }
 
 .right-side {
@@ -304,3 +252,45 @@ footer {
     margin: 0 auto;
     text-align: center;
 } */
+.register-link {
+    margin-top: 10px;
+}
+
+/* //////////////////////// */
+/* divs */
+/* #signers-copntainer {
+    margin: 0;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-image: url(./images/paw1.jpeg);
+} */
+
+#city-div {
+    background-image: url(./images/paw1.jpeg);
+}
+
+#edit {
+    background-image: url(./images/paw4.jpeg);
+}
+
+#petition-div {
+    background-image: url(./images/paw3.jpeg);
+}
+
+#thanks-container {
+    background-image: url(./images/paw3.jpeg);
+}
+#profile {
+    background-image: url(./images/paw2.jpg);
+}
+
+#register {
+    background-image: url(./images/paw2.jpg);
+}
+.div-container {
+    height: 100%;
+    /* object-fit: fill; */
+    margin: 0;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
