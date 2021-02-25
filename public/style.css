@@ -119,18 +119,6 @@ img {
     margin-top: 30px;
 } */
 
-#login {
-    /* /* display: flex;
-    flex-direction: column;
-    justify-content: center; */
-    /* align-items: center;
-     */
-    height: 100vh;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-image: url(./images/paw2.jpg);
-}
-
 #login-form {
     display: flex;
     justify-content: center;
@@ -282,8 +270,19 @@ footer {
     background-size: cover;
     background-image: url(./images/paw2.jpg);
 }
+#login {
+    /* /* display: flex;
+    flex-direction: column;
+    justify-content: center; */
+    /* align-items: center;
+     */
+    /* height: 100vh; */
+    background-size: cover;
+    /* background-repeat: no-repeat; */
+    background-image: url(./images/paw2.jpg);
+}
 .div-container {
-    height: 100%;
+    height: 778px;
     /* object-fit: fill; */
     margin: 0;
     /* background-repeat: no-repeat; */
