@@ -156,14 +156,12 @@ app.get('/login', (req, res) => {
 ///log in post
 app.post('/login', (req, res) => {
     let { email, password_hash } = req.body;
-    console.log('password_hash', password_hash);
-    console.log('email', email);
     if (!email || !password_hash) {
         return res.render('login', {});
     }
     db.getUser(email)
         .then(({ rows }) => {
-            if (!rows[0].length) {
+            if (!rows.length) {
                 return false;
             }
             console.log('rows', rows);
