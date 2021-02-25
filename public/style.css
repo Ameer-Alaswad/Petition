@@ -287,3 +287,6 @@ footer {
 .header:hover {
     color: #666;
 }
+.error-message {
+    color: red;
+}

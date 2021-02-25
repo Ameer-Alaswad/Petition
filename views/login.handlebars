@@ -1,9 +1,10 @@
 <div class="div-container" id="login">
-    {{#if error}}
-    <h1>{{errorMessage}}</h1>
-    {{/if}}
+
     <h1 class="title">Please log in</h1>
     <form class="container" action="/login" method="POST" id="login-form">
+        {{#if error}}
+        <h1 class="error-message">{{errorMessage}}</h1>
+        {{/if}}
         <div id="login-email-div">
             <h1>Email</h1>
             <input placeholder="email" type="email" name="email">
