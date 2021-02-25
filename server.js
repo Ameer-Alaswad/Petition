@@ -156,14 +156,17 @@ app.get('/login', (req, res) => {
 ///log in post
 app.post('/login', (req, res) => {
     let { email, password_hash } = req.body;
+    console.log('password_hash', password_hash);
+    console.log('email', email);
     if (!email || !password_hash) {
-        res.render('login', {
-            error: true,
-            errorMessage: 'please fill all the required fields',
-        });
+        return res.render('login', {});
     }
     db.getUser(email)
         .then(({ rows }) => {
+            if (!rows[0].length) {
+                return false;
+            }
+            console.log('rows', rows);
             const hashed_password = rows[0].password_hash;
             const match = compare(password_hash, hashed_password);
             req.session.userId = rows[0].id;

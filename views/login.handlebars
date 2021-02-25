@@ -2,16 +2,16 @@
 
     <h1 class="title">Please log in</h1>
     <form class="container" action="/login" method="POST" id="login-form">
-        {{#if error}}
+        {{!-- {{#if error}}
         <h1 class="error-message">{{errorMessage}}</h1>
-        {{/if}}
+        {{/if}} --}}
         <div id="login-email-div">
             <h1>Email</h1>
-            <input placeholder="email" type="email" name="email">
+            <input placeholder="email" type="email" name="email" required>
         </div>
         <div id="login-password-div">
             <h1>Password</h1>
-            <input class="input-password-login" placeholder="password" type="password" name="password_hash">
+            <input class="input-password-login" placeholder="password" type="password" name="password_hash" required>
         </div>
         <input type="hidden" name="_csrf" value="{{csrfToken}}">
         <button class="button"><img style="height: 20px; width: 20px;" src="/icons/paw-black.png" alt=""> log
