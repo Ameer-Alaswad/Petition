@@ -156,6 +156,7 @@ app.get('/login', (req, res) => {
 ///log in post
 app.post('/login', (req, res) => {
     let { email, password_hash } = req.body;
+    let id;
     if (!email || !password_hash) {
         return res.render('login', {});
     }
@@ -167,11 +168,12 @@ app.post('/login', (req, res) => {
             console.log('rows', rows);
             const hashed_password = rows[0].password_hash;
             const match = compare(password_hash, hashed_password);
-            req.session.userId = rows[0].id;
+            id = rows[0].id;
             return match;
         })
         .then((match) => {
             if (match) {
+                req.session.userId = id;
                 res.redirect('/petition');
             } else {
                 res.render('login', {
