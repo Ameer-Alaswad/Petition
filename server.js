@@ -62,8 +62,6 @@ app.get('/petition', (req, res) => {
 app.post('/petition', (req, res) => {
     let userId = req.session.userId;
     let { signature } = req.body;
-    console.log('🚀 ~ app.post ~ req.body', req.body);
-    console.log('🚀 ~ app.post ~ signature', signature);
     if (!signature) {
         res.redirect('/petition');
     } else {
@@ -85,7 +83,6 @@ app.get('/petition/thanks', (req, res) => {
     }
     db.getSignature(req.session.userId)
         .then(({ rows }) => {
-            console.log('rows', rows);
             let signature = rows[0].signature;
             db.getSignersNumber().then(({ rows }) => {
                 let signersNumber = rows[0].count;
