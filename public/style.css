@@ -240,18 +240,22 @@ footer {
 
 /* //////////////////////// */
 /* divs */
-/* #signers-copntainer {
-    margin: 0;
+#signers-copntainer {
+    height: 782px;
     background-size: cover;
-    background-repeat: no-repeat;
-    background-image: url(./images/paw1.jpeg);
-} */
-
-#city-div {
     background-image: url(./images/paw1.jpeg);
 }
 
+#city-div {
+    height: 782px;
+    background-image: url(./images/paw1.jpeg);
+    background-size: cover;
+}
+
 #edit {
+    background-size: cover;
+    height: 782px;
+
     background-image: url(./images/paw4.jpeg);
 }
 
@@ -263,6 +267,7 @@ footer {
     background-image: url(./images/paw3.jpeg);
 }
 #profile {
+    background-size: cover;
     background-image: url(./images/paw2.jpg);
 }
 
