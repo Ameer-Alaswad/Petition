@@ -197,6 +197,9 @@ app.get('/profile', (req, res) => {
 ///////////////////////////////////////////
 //// profile post
 app.post('/profile', (req, res) => {
+    if (!req.session.userId) {
+        return res.redirect('/login');
+    }
     let { age, city, url } = req.body;
     city = city.charAt(0).toUpperCase() + city.slice(1);
     if (!age) {
