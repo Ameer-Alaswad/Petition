@@ -3,7 +3,6 @@ html {
     padding: 0;
 }
 body {
-    /* position: relative; */
     margin: 0;
     height: 100%;
     background-color: rgba(128, 128, 128, 0.712);
@@ -42,8 +41,7 @@ canvas {
     -moz-box-shadow: -1px 2px 45px 21px rgba(0, 0, 0, 0.69);
     background-color: rgba(255, 255, 255, 0.308);
     margin: 70px auto;
-    /* position: relative; */
-    width: 300px;
+    width: 450px;
     height: 570px;
     display: flex;
     justify-content: center;
@@ -56,7 +54,7 @@ canvas {
     -webkit-box-shadow: -1px 2px 45px 21px rgba(0, 0, 0, 0.69);
     -moz-box-shadow: -1px 2px 45px 21px rgba(0, 0, 0, 0.69);
     background-color: rgba(255, 255, 255, 0.308);
-    margin: 0 auto;
+    margin: 20px auto;
     width: 300px;
     height: 560px;
     display: flex;
@@ -91,8 +89,8 @@ img {
 .button {
     border: none;
     outline: none;
-    height: 80px;
-    width: 50px;
+    height: 70px;
+    width: 80px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -115,9 +113,6 @@ img {
 .button:hover {
     background-color: rgba(102, 102, 102, 0.103);
 }
-/* form button {
-    margin-top: 30px;
-} */
 
 #login-form {
     display: flex;
@@ -152,6 +147,7 @@ input:hover {
 
 /* register */
 .title {
+    font-size: xx-large;
     padding-top: 30px;
     margin: 0 auto;
     width: 400px;
@@ -181,18 +177,11 @@ footer {
 }
 
 #sig-image {
-    width: 200px;
+    margin-bottom: 40px;
+    width: 300px;
     height: 250px;
     background-color: aliceblue;
 }
-
-/* #thanks-container {
-    margin: 0;
-    /* height: 95%; */
-/* background-size: cover;
-    background-repeat: no-repeat;
-    background-image: url(./images/paw2.jpg);
-} */
 
 #edit form div h1 {
     font-size: small;
@@ -227,35 +216,25 @@ footer {
     padding: 0 10px 0 10px;
 }
 
-/* .btnText {
-    font-size: small;
-} */
-/* h1 {
-    margin: 0 auto;
-    text-align: center;
-} */
 .register-link {
-    margin-top: 10px;
+    margin-top: 40px;
+    font-size: 12px;
 }
 
 /* //////////////////////// */
 /* divs */
 #signers-copntainer {
-    height: 782px;
     background-size: cover;
     background-image: url(./images/paw1.jpeg);
 }
 
 #city-div {
-    height: 782px;
     background-image: url(./images/paw1.jpeg);
     background-size: cover;
 }
 
 #edit {
     background-size: cover;
-    height: 782px;
-
     background-image: url(./images/paw4.jpeg);
 }
 
@@ -276,20 +255,35 @@ footer {
     background-image: url(./images/paw2.jpg);
 }
 #login {
-    /* /* display: flex;
-    flex-direction: column;
-    justify-content: center; */
-    /* align-items: center;
-     */
-    /* height: 100vh; */
     background-size: cover;
-    /* background-repeat: no-repeat; */
     background-image: url(./images/paw2.jpg);
 }
 .div-container {
-    height: 778px;
-    /* object-fit: fill; */
+    height: 783px;
     margin: 0;
-    /* background-repeat: no-repeat; */
     background-position: center center;
+}
+.password {
+    margin-bottom: 20px;
+}
+.input-password-login {
+    margin-bottom: 15px;
+}
+
+#button-in-petition {
+    margin-top: 35px;
+}
+#title-in-profile {
+    font-size: x-large;
+}
+#input-homepage {
+    margin-bottom: 30px;
+}
+.header {
+    color: aliceblue;
+    font-size: large;
+    text-decoration: none;
+}
+.header:hover {
+    color: #666;
 }

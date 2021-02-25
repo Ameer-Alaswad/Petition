@@ -1,9 +1,9 @@
-<div id="city-div">
+<div class="div-container" id="city-div">
     <h1 class="title">signers</h1>
     <div class="container">
         {{#allSigners}}
         {{#if url}}
-        <h2><a href="{{url}}">{{first_name}} {{last_name}}</a> | | {{age}}</h2>
+        <h2><a href="{{url}}">{{first_name}} {{last_name}}</a> {{age}}</h2>
         {{/if}}
         {{#else}}
         <h2>{{first_name}} {{last_name}} {{age}}</h2>
