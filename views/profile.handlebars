@@ -1,5 +1,5 @@
 <div id="profile">
-    <h1>Now tell us just a little more about yourself</h1>
+    <h1 class="title">Now tell us just a little more about yourself</h1>
     <form class="container" action="/profile" method="POST">
         <div>
             <h1>Age</h1>
@@ -14,6 +14,8 @@
             <input placeholder="Homepage" type="text" name="url">
         </div>
         <input type="hidden" name="_csrf" value="{{csrfToken}}">
-        <button><img style="height: 20px; width: 20px;" src="/icons/paw-black.png" alt="">CONTINUE</button>
+        <button class="button">
+            <img src=" /icons/paw-black.png" alt="">CONTINUE
+        </button>
     </form>
 </div>

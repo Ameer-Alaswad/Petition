@@ -1,13 +1,17 @@
-<div>
-    <img src="{{signature}}" alt="">
-    <a href="/delete">
-        <form id="button-delete" action="/delete" method="POST">
-            <button>Delete your signature</button>
-            <input type="hidden" name="_csrf" value="{{csrfToken}}">
-        </form>
-    </a>
-    <a href="/edit">Edit your profile</a>
+<div id="thanks-container">
+    <h1 class="title">TY for signing our Petition</h1>
+    <div class="container">
 
-    <p><a href="/signers"> see all {{signersNumber}} signers</a></p>
+        <img id="sig-image" src="{{signature}}" alt="">
+        <a href="/delete">
+            <form id="button-delete" action="/delete" method="POST">
+                <button class="button-in-thanks">Delete your signature</button>
+                <input type="hidden" name="_csrf" value="{{csrfToken}}">
+            </form>
+        </a>
+        <a class="edit-your-profile" href="/edit">Edit your profile</a>
+
+        <p><a class="edit-your-profile" href="/signers"> see all {{signersNumber}} signers</a></p>
+    </div>
+    {{!-- <img src="/icons/paw-black.png" alt=""> --}}
 </div>
-{{!-- <img src="/icons/paw-black.png" alt=""> --}}

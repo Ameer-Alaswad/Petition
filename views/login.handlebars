@@ -2,7 +2,7 @@
     {{#if error}}
     <h1>{{errorMessage}}</h1>
     {{/if}}
-    <h1>Please log in</h1>
+    <h1 class="title">Please log in</h1>
     <form class="container" action="/login" method="POST" id="login-form">
         <div id="login-email-div">
             <h1>Email</h1>
@@ -13,6 +13,8 @@
             <input placeholder="password" type="password" name="password_hash">
         </div>
         <input type="hidden" name="_csrf" value="{{csrfToken}}">
-        <button><img style="height: 20px; width: 20px;" src="/icons/paw-black.png" alt=""> log in</button>
+        <button class="button"><img style="height: 20px; width: 20px;" src="/icons/paw-black.png" alt=""> log
+            in</button>
+        <a href="/register">or regiser if you don't have an account</a>
     </form>
 </div>

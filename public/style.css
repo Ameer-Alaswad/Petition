@@ -1,10 +1,14 @@
-body {
+html {
     margin: 0;
-    background-color: rgba(128, 128, 128, 0.712);
+    padding: 0;
+}
+body {
+    position: relative;
+    margin: 0;
     height: 100vh;
+    background-color: rgba(128, 128, 128, 0.712);
     font-family: 'Potta One', cursive;
     font-size: 10px;
-
     /* height: 100vh;
     display: flex;
     flex-direction: column;
@@ -13,12 +17,10 @@ body {
 }
 
 header {
-    height: 50px;
+    width: 100%;
+    height: 5%;
     background-color: #000;
     color: aliceblue;
-    /* box-shadow: 17px -74px 70px -65px rgba(174, 164, 164, 0.85) inset;
-    -webkit-box-shadow: 17px -74px 70px -65px rgba(174, 164, 164, 0.85) inset;
-    -moz-box-shadow: 17px -74px 70px -65px rgba(174, 164, 164, 0.85) inset; */
     background: rgb(37, 36, 36);
     background: linear-gradient(
         60deg,
@@ -32,100 +34,92 @@ header {
         rgba(115, 111, 111, 1) 100%
     );
 }
-footer {
-    background-color: #000;
-    color: aliceblue;
-}
 
 canvas {
-    border: 10px black solid;
+    border: 1px black solid;
+    background-color: aliceblue;
 }
 .container {
     box-shadow: -1px 2px 45px 21px rgba(0, 0, 0, 0.69);
     -webkit-box-shadow: -1px 2px 45px 21px rgba(0, 0, 0, 0.69);
     -moz-box-shadow: -1px 2px 45px 21px rgba(0, 0, 0, 0.69);
     background-color: rgba(255, 255, 255, 0.308);
-    margin: 100px auto;
+    margin: 70px auto;
+    /* position: relative; */
+    width: 300px;
+    height: 570px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    overflow: auto;
+}
+#petition-container {
+    box-shadow: -1px 2px 45px 21px rgba(0, 0, 0, 0.69);
+    -webkit-box-shadow: -1px 2px 45px 21px rgba(0, 0, 0, 0.69);
+    -moz-box-shadow: -1px 2px 45px 21px rgba(0, 0, 0, 0.69);
+    background-color: rgba(255, 255, 255, 0.308);
+    margin: 0 auto;
     width: 300px;
     height: 560px;
     display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
+    overflow: auto;
 }
+#petition-container #canvas-signature {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 800px;
+}
+#petition-container {
+    width: 500px;
+}
+
 .container:hover {
     transform: scale(1.02);
 }
 
 img {
-    height: 45px;
-    width: 45px;
+    height: 33px;
+    width: 33px;
     padding-left: 3px;
 }
 .btnText {
     margin: 3px 0;
 }
-/* button {
+.button {
     border: none;
     outline: none;
-    height: 100px;
-    width: 68px;
+    height: 80px;
+    width: 50px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     margin: 0;
     padding: 10px;
-    font-size: 12px;
+    font-size: 8px;
     text-align: center;
     cursor: pointer;
     color: #000;
     background-color: transparent;
     border-radius: 15px;
     box-shadow: 0 9px rgb(153, 153, 153);
-} */
-/* button:active {
+}
+.button:active {
     background-color: transparent;
     box-shadow: 0 5px #666;
     transform: translateY(4px);
 }
-button:hover {
-    /* background-color: rgba(102, 102, 102, 0.103); */
-/* }  */
-form button {
+.button:hover {
+    background-color: rgba(102, 102, 102, 0.103);
+}
+/* form button {
     margin-top: 30px;
-}
-
-/* button {
-    z-index: 1;
-    font-family: 'Potta One', cursive;
-    position: relative;
-    margin-bottom: 200px;
-    margin-right: 60px;
-    background-color: blue;
-    outline: none;
-    border: none;
-    cursor: pointer;
-    display: block;
-    background: purple;
-    font-size: 16px;
-    font-weight: 300;
-    color: white;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    padding: 10px 30px;
-    box-shadow: 0 6px purple;
-    border-radius: 20px;
-}
-
-button:hover {
-    box-shadow: 0 4px silver;
-    top: 2px;
-}
-
-button:active {
-    box-shadow: 0 0 silver;
-    top: 6px;
 } */
 
 #login {
@@ -160,7 +154,8 @@ button:active {
 }
 
 #register {
-    height: 92%;
+    height: 95%;
+    /* position: relative; */
     background-size: cover;
     background-repeat: no-repeat;
     background-image: url(./images/paw2.jpg);
@@ -179,7 +174,7 @@ input:hover {
 }
 
 /* register */
-#register-title {
+.title {
     padding-top: 30px;
     margin: 0 auto;
     width: 400px;
@@ -194,12 +189,96 @@ input:hover {
 }
 
 #button-delete button {
+    margin-bottom: 8px;
     border: none;
     outline: none;
     text-decoration: underline;
     background: none;
     cursor: pointer;
-    color: blue;
-    font-size: 11px;
+    color: black;
+    font-size: small;
     font-family: 'Potta One', cursive;
 }
+
+footer {
+    margin: 0;
+    height: 30px;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    background-color: #000;
+    color: aliceblue;
+}
+
+#sig-image {
+    width: 200px;
+    height: 250px;
+    background-color: aliceblue;
+}
+
+/* #thanks-container {
+    margin: 0;
+    height: 95%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-image: url(./images/paw2.jpg);
+} */
+
+#petition-div {
+    margin: 0;
+    height: 95%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-image: url(./images/paw3.jpeg);
+}
+
+#thanks-container {
+    margin: 0;
+    height: 95%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-image: url(./images/paw3.jpeg);
+}
+
+#edit {
+    margin: 0;
+    height: 95%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-image: url(./images/paw4.jpeg);
+}
+#edit form div h1 {
+    font-size: small;
+}
+
+.edit-your-profile {
+    font-size: small;
+    color: black;
+}
+
+#city-div {
+    margin: 0;
+    height: 95%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-image: url(./images/paw1.jpeg);
+}
+
+#button-edit {
+    height: 90px;
+}
+#signers-copntainer {
+    margin: 0;
+    height: 95%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-image: url(./images/paw1.jpeg);
+}
+
+/* .btnText {
+    font-size: small;
+} */
+/* h1 {
+    margin: 0 auto;
+    text-align: center;
+} */

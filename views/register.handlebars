@@ -1,10 +1,9 @@
 <div id="register">
     {{#if error}}
     <h1>{{errorMessage}}</h1>
-
     {{/if}}
-    <h1 id="register-title">Sign up to help us with our cause</h1>
-    <form class="container" action="/register" method="POST">
+    <h1 class="title">Sign up to help us with our cause</h1>
+    <form action="/register" class="container" method="POST">
         <div>
             <h1>First Name</h1>
             <input placeholder="name" type="text" name="first_name">
@@ -22,7 +21,7 @@
             <input placeholder="password" type="password" name="password_hash">
         </div>
         <input type="hidden" name="_csrf" value="{{csrfToken}}">
-        <button><img src="/icons/paw-black.png" alt="">
+        <button class="button"><img src="/icons/paw-black.png" alt="">
             <h4 class="btnText">sign up</h4>
         </button>
     </form>

@@ -6,11 +6,9 @@ const hb = require('express-handlebars');
 const cookieSession = require('cookie-session');
 const { hash, compare } = require('./utils/bc.js');
 ////////////////////////////////////////////////
-app.engine('handlebars', hb());
-app.set('view engine', 'handlebars');
 ///////////////////////////////////////////
-app.use(express.urlencoded({ extended: false }));
 app.use(express.static('./public'));
+app.use(express.urlencoded({ extended: false }));
 /////////////////////////////////////////////////
 app.use(
     cookieSession({
@@ -19,11 +17,14 @@ app.use(
     })
 );
 app.use(csurf());
+
 app.use(function (req, res, next) {
     res.locals.csrfToken = req.csrfToken();
     next();
 });
 //////////////////////////////////////////////
+app.engine('handlebars', hb());
+app.set('view engine', 'handlebars');
 ///
 app.get('/', (req, res) => res.redirect('/petition'));
 
@@ -33,6 +34,7 @@ app.get('/signers', (req, res) => {
     db.getAllSigners()
         .then(({ rows }) => {
             let allSigners = rows;
+
             res.render('signers', {
                 layout: 'main',
                 allSigners,
@@ -83,6 +85,7 @@ app.get('/petition/thanks', (req, res) => {
     }
     db.getSignature(req.session.userId)
         .then(({ rows }) => {
+            console.log('rows', rows);
             let signature = rows[0].signature;
             db.getSignersNumber().then(({ rows }) => {
                 let signersNumber = rows[0].count;
@@ -101,7 +104,8 @@ app.get('/register', (req, res) => {
     if (req.session.userId) {
         res.redirect('/petition');
     } else {
-        res.render('register', {});
+        // req.session = null;
+        res.render('register', { layout: 'main' });
     }
 });
 
@@ -191,20 +195,30 @@ app.post('/profile', (req, res) => {
     if (!age) {
         age = null;
     }
-    if (url.startsWith('https://') || url.startsWith('http://')) {
+    if (!age && !city && !url) {
+        res.redirect('/petition');
+    }
+
+    if (
+        url.startsWith('https://') ||
+        url.startsWith('http://') ||
+        url.startsWith('//') ||
+        !url
+    ) {
         let userId = req.session.userId;
 
         db.addProfile(age, city, url, userId)
             .then(() => {
-                res.redirect('petition');
+                res.redirect('/petition');
             })
             .catch((err) => console.log('err in profile', err));
-    } else if (!url.startsWith('https://') || !url.startsWith('http://')) {
-        url = 'https://' + url;
+    } else if (url) {
+        newUrl = '';
+        newUrl = newUrl.concat('https://', url);
         let userId = req.session.userId;
-        db.addProfile(age, city, url, userId)
+        db.addProfile(age, city, newUrl, userId)
             .then(() => {
-                res.redirect('petition');
+                res.redirect('/petition');
             })
             .catch((err) => console.log('err in profile', err));
     }
@@ -244,46 +258,98 @@ app.get('/edit', (req, res) => {
 ///update post
 app.post('/edit', (req, res) => {
     let userId = req.session.userId;
-    let {
-        first_name,
-        last_name,
-        password_hash,
-        email,
-        age,
-        city,
-        url,
-    } = req.body;
-    city = city.charAt(0).toUpperCase() + city.slice(1);
-    first_name = first_name.charAt(0).toUpperCase() + first_name.slice(1);
-    last_name = last_name.charAt(0).toUpperCase() + last_name.slice(1);
+    let { first_name, last_name, password_hash, email, age, city } = req.body;
+    let url = req.body.url;
 
     if (!age) {
         age = null;
     }
-    if (password_hash) {
-        hash(password_hash).then((hashedPassword) => {
+
+    if (
+        url.startsWith('https://') ||
+        url.startsWith('http://') ||
+        url.startsWith('//') ||
+        !url
+    ) {
+        newUrl = '';
+        newUrl = newUrl.concat('https://', url);
+        city = city.charAt(0).toUpperCase() + city.slice(1);
+        first_name = first_name.charAt(0).toUpperCase() + first_name.slice(1);
+        last_name = last_name.charAt(0).toUpperCase() + last_name.slice(1);
+        if (password_hash) {
+            hash(password_hash).then((hashedPassword) => {
+                Promise.all([
+                    db.updateUserWithPassword(
+                        first_name,
+                        last_name,
+                        hashedPassword,
+                        email,
+                        userId
+                    ),
+                    db.upsertUserProfile(age, city, newUrl, userId),
+                ])
+                    .then(() => {
+                        res.redirect('/petition');
+                    })
+                    .catch((err) =>
+                        console.log('err in edit if passowrd', err)
+                    );
+            });
+        } else {
             Promise.all([
-                db.updateUserWithPassword(
+                db.updateUserWithoutPassword(
                     first_name,
                     last_name,
-                    hashedPassword,
                     email,
                     userId
                 ),
                 db.upsertUserProfile(age, city, url, userId),
             ])
-                .then(() => {
-                    res.redirect('/petition');
-                })
-                .catch((err) => console.log('err in edit if passowrd', err));
-        });
+                .then(() => res.redirect('/petition'))
+                .catch((err) =>
+                    console.log('err in edit without password', err)
+                );
+        }
     } else {
-        Promise.all([
-            db.updateUserWithoutPassword(first_name, last_name, email, userId),
-            db.upsertUserProfile(age, city, url, userId),
-        ])
-            .then(() => res.redirect('/petition'))
-            .catch((err) => console.log('err in edit without password', err));
+        newUrl = '';
+        newUrl = newUrl.concat('https://', url);
+        city = city.charAt(0).toUpperCase() + city.slice(1);
+        first_name = first_name.charAt(0).toUpperCase() + first_name.slice(1);
+        last_name = last_name.charAt(0).toUpperCase() + last_name.slice(1);
+        if (password_hash) {
+            hash(password_hash).then((hashedPassword) => {
+                Promise.all([
+                    db.updateUserWithPassword(
+                        first_name,
+                        last_name,
+                        hashedPassword,
+                        email,
+                        userId
+                    ),
+                    db.upsertUserProfile(age, city, newUrl, userId),
+                ])
+                    .then(() => {
+                        res.redirect('/petition');
+                    })
+                    .catch((err) =>
+                        console.log('err in edit if passowrd', err)
+                    );
+            });
+        } else {
+            Promise.all([
+                db.updateUserWithoutPassword(
+                    first_name,
+                    last_name,
+                    email,
+                    userId
+                ),
+                db.upsertUserProfile(age, city, newUrl, userId),
+            ])
+                .then(() => res.redirect('/petition'))
+                .catch((err) =>
+                    console.log('err in edit without password', err)
+                );
+        }
     }
 });
 ///////////////////////////////////////////

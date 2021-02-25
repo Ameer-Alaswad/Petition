@@ -1,5 +1,5 @@
 <div id="edit">
-    <h1 id="edit-title">Edit your profile</h1>
+    <h1 class="title">Edit your profile</h1>
     <form class="container" action="/edit" method="POST">
         <div>
             <h1>First Name</h1>
@@ -30,7 +30,7 @@
             <input type="text" name="url" value="{{signer.url}}">
         </div>
         <input type="hidden" name="_csrf" value="{{csrfToken}}">
-        <button><img src="/icons/paw-black.png" alt="">
+        <button id="button-edit" class="button"><img src="/icons/paw-black.png" alt="">
             <h2 class="btnText">UPDATE</h2>
         </button>
     </form>

@@ -1,7 +1,9 @@
-<div>
-    {{#allSigners}}
+<div id="signers-copntainer">
+    <h1 class="title">signers</h1>
+    <div class="container">
+        {{#allSigners}}
+        <h2>{{first_name}} {{last_name}} {{age}} <a href="/signers/{{city}}">{{city}}</a></h2>
+        {{/allSigners}}
+    </div>
 
-    <h4>{{first_name}} {{last_name}} || {{age}} <a href="/signers/{{city}}">{{city}}</a></h4>
-
-    {{/allSigners}}
 </div>
