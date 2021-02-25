@@ -5,7 +5,7 @@ html {
 body {
     /* position: relative; */
     margin: 0;
-    height: 100vh;
+    height: 100%;
     background-color: rgba(128, 128, 128, 0.712);
     font-family: 'Potta One', cursive;
     font-size: 10px;
@@ -283,7 +283,7 @@ footer {
     background-image: url(./images/paw2.jpg);
 }
 .div-container {
-    height: 97%;
+    height: 100%;
     /* object-fit: fill; */
     margin: 0;
     /* background-repeat: no-repeat; */
