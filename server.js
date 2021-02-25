@@ -188,6 +188,9 @@ app.post('/login', (req, res) => {
 //////////////////////////////////////////////////
 //// profile get
 app.get('/profile', (req, res) => {
+    if (!req.session.userId) {
+        return res.redirect('/login');
+    }
     res.render('profile');
 });
 
