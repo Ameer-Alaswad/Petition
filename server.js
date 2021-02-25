@@ -102,7 +102,7 @@ app.get('/register', (req, res) => {
         res.redirect('/petition');
     } else {
         // req.session = null;
-        res.render('register', { layout: 'main' });
+        res.render('register', { layout: 'main', notLogged: true });
     }
 });
 
@@ -116,6 +116,7 @@ app.post('/register', (req, res) => {
         res.render('register', {
             error: true,
             errorMessage: 'please fill all the required fields',
+            notLogged: true,
         });
     } else {
         hash(password_hash)
@@ -131,6 +132,7 @@ app.post('/register', (req, res) => {
                 console.log('err in register post', err);
                 res.render('/register', {
                     error: true,
+                    notLogged: true,
                     errorMessage: 'something went wrong, please try again',
                 });
             });
@@ -145,6 +147,7 @@ app.get('/login', (req, res) => {
     }
     res.render('login', {
         layout: 'main',
+        notLogged: true,
     });
 });
 

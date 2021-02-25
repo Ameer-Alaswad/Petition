@@ -1,3 +1,72 @@
 <header>
-    <a href="/logout">logout</a>
+
+    {{#if notLogged}}
+
+    <div class='right-side'>
+
+        <div>
+
+            <a href="/register">register</a>
+        </div>
+        <div>
+
+            <a href="/login">login</a>
+        </div>
+    </div>
+    {{else}}
+    <div class='left-side'>
+
+        <div>
+            <a href="/edit">edit</a>
+        </div>
+    </div>
+    <div class='right-side'>
+
+        <div>
+            <a href="/logout">logout</a>
+        </div>
+    </div>
+
+    {{/if}}
+
 </header>
+
+
+{{!-- <nav>
+
+    <div class="right-side">
+
+        {{#if logged}}
+
+
+        <div>
+            <a class="symbol" href="/petition/cause">My cause!</a>
+        </div>
+
+        <div>
+            <a class="edit" href="/profile/edit">Edit</a>
+        </div>
+        <div>
+            <a class="logout" href="/logout">Logout</a>
+        </div>
+
+    </div>
+    <div class="left-side">
+        <div class="welcome-name">
+            <a class="signer" href="/petition">
+                <span class="name">{{first}}</span>
+            </a>
+        </div>
+        <div>
+            <a class="signers" href="/signers">Signers</a>
+        </div>
+    </div>
+    {{else}}
+
+    <div>
+        <a class="symbol" href="/petition/cause">My cause!</a>
+    </div>
+
+    {{/if}}
+
+</nav> --}}
