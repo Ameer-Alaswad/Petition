@@ -128,7 +128,7 @@ img {
     justify-content: center; */
     /* align-items: center;
      */
-    height: 92%;
+    /* height: 92%; */
     background-size: cover;
     background-repeat: no-repeat;
     background-image: url(./images/paw2.jpg);
@@ -154,7 +154,7 @@ img {
 }
 
 #register {
-    height: 95%;
+    /* height: 95%; */
     /* position: relative; */
     background-size: cover;
     background-repeat: no-repeat;
@@ -182,7 +182,7 @@ input:hover {
 }
 
 #profile {
-    height: 92%;
+    /* height: 92%; */
     background-size: cover;
     background-repeat: no-repeat;
     background-image: url(./images/paw2.jpg);
@@ -218,7 +218,7 @@ footer {
 
 /* #thanks-container {
     margin: 0;
-    height: 95%;
+    /* height: 95%; */
     background-size: cover;
     background-repeat: no-repeat;
     background-image: url(./images/paw2.jpg);
@@ -226,7 +226,7 @@ footer {
 
 #petition-div {
     margin: 0;
-    height: 95%;
+    /* height: 95%; */
     background-size: cover;
     background-repeat: no-repeat;
     background-image: url(./images/paw3.jpeg);
@@ -234,7 +234,7 @@ footer {
 
 #thanks-container {
     margin: 0;
-    height: 95%;
+    /* height: 95%; */
     background-size: cover;
     background-repeat: no-repeat;
     background-image: url(./images/paw3.jpeg);
@@ -242,7 +242,7 @@ footer {
 
 #edit {
     margin: 0;
-    height: 95%;
+    /* height: 95%; */
     background-size: cover;
     background-repeat: no-repeat;
     background-image: url(./images/paw4.jpeg);
@@ -258,7 +258,7 @@ footer {
 
 #city-div {
     margin: 0;
-    height: 95%;
+    /* height: 95%; */
     background-size: cover;
     background-repeat: no-repeat;
     background-image: url(./images/paw1.jpeg);
@@ -269,7 +269,7 @@ footer {
 }
 #signers-copntainer {
     margin: 0;
-    height: 95%;
+    /* height: 95%; */
     background-size: cover;
     background-repeat: no-repeat;
     background-image: url(./images/paw1.jpeg);
