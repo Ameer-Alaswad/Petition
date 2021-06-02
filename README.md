@@ -1,6 +1,6 @@
 # Petition
 # What is Petition?
-it is a website where you can sigh a Petition to support your cause.
+it is a website where you can sign a Petition to support your cause.
 # how can i run it ?
 clone it then - npm start- 
 Runs the app in the development mode. Open http://localhost:8080 to view it in the browser.
